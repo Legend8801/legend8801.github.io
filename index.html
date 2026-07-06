@@ -138,6 +138,16 @@
   .pbtn:not(.on):hover{color:var(--tx);background:#1a1c22}
   .badge24{font-size:9px;font-weight:700;letter-spacing:.6px;color:#e8a33d;border:1px solid #7a5a22;
     border-radius:4px;padding:2px 6px;vertical-align:middle}
+  .tgrid.two{display:flex;gap:12px}
+  .tcol{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+  .mapcard{flex:1;min-height:120px;display:flex;flex-direction:column;padding-bottom:8px}
+  .usemap.inmap{flex:1;min-height:0;border-top:0;margin-top:7px;position:relative}
+  .chead{display:flex;justify-content:space-between;align-items:baseline;font-size:10px;letter-spacing:1px;font-weight:800;color:var(--mut)}
+  .chead .chr{font-weight:500;letter-spacing:.2px;color:var(--dim);font-size:9.5px}
+  .srow{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;color:var(--mut);
+    padding:5px 2px;border-bottom:1px solid #1d2027;cursor:var(--curinfo)}
+  .srow b{color:var(--tx);font-weight:700}
+  .srow .hl2{color:#9db8e8;font-weight:700}
   .tgrid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:12px;overflow:auto}
   @media(max-width:900px){.tgrid{grid-template-columns:1fr;grid-template-rows:none}}
   .statrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}
@@ -195,6 +205,14 @@
   .substrip .stat .v{font-size:12.5px}
   .substrip .stat .k{font-size:10px}
   .viewct{color:var(--dim)}
+  @keyframes hb{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}100%{box-shadow:0 0 0 7px rgba(74,222,128,0)}}
+  .dot.beat{animation:hb .9s ease-out 1}
+  #kbd{position:fixed;inset:0;background:rgba(8,9,12,.72);display:none;align-items:center;justify-content:center;z-index:99}
+  #kbd.on{display:flex}
+  #kbd .card{background:#14161c;border:1px solid var(--line);border-radius:10px;padding:22px 26px;min-width:340px}
+  #kbd h3{font-size:13px;margin-bottom:12px;color:var(--tx)}
+  #kbd .row{display:flex;justify-content:space-between;gap:26px;font-size:11.5px;color:var(--mut);padding:5px 0;border-bottom:1px solid #1d2027}
+  #kbd kbd{background:#20242e;border:1px solid #2e3340;border-radius:4px;padding:1px 7px;font-size:10.5px;color:var(--tx);font-family:inherit}
   .viewct b{color:var(--mut);font-weight:700}
   .divlbl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700;
     margin:10px 0 5px;border-top:1px solid var(--line);padding-top:8px}
@@ -213,7 +231,15 @@
   .suhead{font-size:12.5px;font-weight:800;letter-spacing:.3px;padding:10px 14px 9px;border-bottom:1px solid var(--line);
     display:flex;justify-content:space-between;align-items:baseline;flex:none}
   .suhead span{font-size:10px;color:var(--dim);font-weight:500}
-  .su{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;overflow:auto}
+  .su{flex:none;display:grid;grid-template-columns:1fr 1fr;overflow:visible}
+  .usemap{flex:1;min-height:110px;position:relative;border-top:1px solid var(--line);background:var(--bg)}
+  .oppp{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;
+    border-left:2px dashed #3a4a6a;background:linear-gradient(135deg,#141a28,#0f1219);text-align:center;
+    padding:10px 12px;cursor:var(--curinfo);overflow:hidden}
+  .oppp .oe{font-size:9px;letter-spacing:1.4px;font-weight:800;color:#8fa3c8;text-transform:uppercase}
+  .oppp .ob{font-size:clamp(18px,2.6vw,30px);font-weight:800;color:#e8e9ed;line-height:1}
+  .oppp .os{font-size:10px;color:var(--mut);line-height:1.4;max-width:240px}
+  .oppp .obp{font-size:9px;color:var(--dim);border-top:1px solid #232633;padding-top:5px;margin-top:3px;max-width:240px}
   .su>div:first-child{border-right:1px solid var(--line)}
   @media(max-width:820px){.su{grid-template-columns:1fr}.su>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
   .suh{background:#1b2a47;color:#e6ecf8;font-weight:700;font-size:11px;letter-spacing:.6px;padding:6px 14px}
@@ -345,6 +371,7 @@
             <div id="suUses"></div>
           </div>
         </div>
+        <div class="usemap" id="useMap"><div style="padding:14px;color:var(--dim);font-size:11px">building uses map…</div></div>
         <div class="deploybar" id="deployBar"></div>
         <div class="deploylbl" id="deployLbl"></div>
         <div class="sunote" id="suNote">—</div>
@@ -397,8 +424,8 @@
       <div class="stat ratio" id="tTiGap"><span class="k">Gap to #3</span><span class="v" id="tiGap">—</span></div>
       <div class="stat" id="tTiHHI"><span class="k">Router HHI</span><span class="v" id="tiHHI">—</span></div>
     </div>
-    <div class="tgrid">
-      <div class="card">
+    <div class="tgrid two">
+      <div class="tcol"><div class="card">
         <h2>Titan Exchange — Meta-Router <small id="tiPer">24h</small></h2>
         <div class="statrow">
           <div class="ministat" id="tiVolT"><div class="mk">ROUTED VOLUME</div><div class="mv" id="tiVol">—</div><div class="ms" id="tiChg">—</div></div>
@@ -408,8 +435,15 @@
         </div>
         <div class="trajrow" id="tiTraj"></div>
         <div class="kicker">Titan is a meta-aggregator: it routes across Jupiter, DFlow, OKX and direct AMMs, quoting NBBO-style best execution — the IBKR/Robinhood entry point for the single ledger.</div>
-      </div>
-      <div class="card">
+      </div><div class="card netcard">
+        <h2>Router Landscape — Solana Aggregators <small id="tiLandPer">share of routed volume</small></h2>
+        <div id="tiLand" style="margin-top:6px"></div>
+        <div class="kicker" id="tiKick">—</div>
+      </div><div class="card">
+        <h2>Titan Playbook — Frictionless Capital View <small>hover each for rationale &amp; math</small></h2>
+        <div id="tiRecs" style="margin-top:4px"></div>
+      </div></div>
+      <div class="tcol"><div class="card">
         <h2>Order-Flow Quality <small>modeled<span class="esttag">EST</span></h2>
         <div class="statrow">
           <div class="ministat" id="tiToxT"><div class="mk">NON-TOXIC FLOW</div><div class="mv" id="tiTox">~92%</div><div class="ms">retail-originated, uninformed</div></div>
@@ -418,14 +452,14 @@
         </div>
         <div class="modelnote" id="tiModel">Front-end order flow is overwhelmingly retail: no colocation, human-speed, small clips. Toxicity concentrates in colocated CLOB/prop flow. Hover each figure for the model.</div>
       </div>
-      <div class="card netcard" style="grid-column:1/-1">
-        <h2>Router Landscape — Solana Aggregators <small id="tiLandPer">share of routed volume</small></h2>
-        <div id="tiLand" style="margin-top:6px"></div>
-        <div class="kicker" id="tiKick">—</div>
-      </div>
-      <div class="card" style="grid-column:1/-1">
-        <h2>Titan Playbook — Frictionless Capital View <small>hover each for rationale &amp; math</small></h2>
-        <div id="tiRecs" style="margin-top:4px"></div>
+        <div class="card">
+          <div class="chead"><span>SHARE-SCENARIO ECONOMICS</span><span class="chr">live TAM × share · PFOF-equiv at 2 bp</span></div>
+          <div id="tiScen" style="display:flex;flex-direction:column;gap:2px;margin-top:6px"></div>
+        </div>
+        <div class="card mapcard">
+          <div class="chead"><span>ROUTER LANDSCAPE — TILE VIEW</span><span class="chr">per-asset mix not published by routers</span></div>
+          <div class="usemap inmap" id="tiMap"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -440,8 +474,8 @@
       <div class="stat" id="tBpF1m"><span class="k">Custody flow 1m</span><span class="v" id="bpF1m">—</span></div>
       <div class="stat fc" id="tBpRevD"><span class="k">Est. revenue</span><span class="v" id="bpRevD">—</span></div>
     </div>
-    <div class="tgrid">
-      <div class="card">
+    <div class="tgrid two">
+      <div class="tcol"><div class="card">
         <h2>Backpack Exchange — Trading <small><span class="badge24">24H · CG</span></small></h2>
         <div class="statrow">
           <div class="ministat" id="bpSpotT"><div class="mk">SPOT VOLUME</div><div class="mv" id="bpSpot">—</div><div class="ms" id="bpSpotS">—</div></div>
@@ -449,8 +483,15 @@
           <div class="ministat" id="bpRevT"><div class="mk">EST. REVENUE<span class="esttag">EST</span></div><div class="mv" id="bpRev">—</div><div class="ms" id="bpRevS">—</div></div>
         </div>
         <div id="bpMix" style="margin-top:8px"></div>
-      </div>
-      <div class="card">
+      </div><div class="card netcard">
+        <h2>Tokenized Equity Franchise <small id="bpEqPer">cross-issuer share</small></h2>
+        <div id="bpEq" style="margin-top:6px"></div>
+        <div class="kicker" id="bpKick">—</div>
+      </div><div class="card">
+        <h2>Backpack Playbook — Frictionless Capital View <small>hover each for rationale &amp; math</small></h2>
+        <div id="bpRecs" style="margin-top:4px"></div>
+      </div></div>
+      <div class="tcol"><div class="card">
         <h2>Balance Sheet &amp; Ledger <small>proof-of-reserves wallets</small></h2>
         <div class="statrow">
           <div class="ministat" id="bpAucT"><div class="mk">ASSETS UNDER CUSTODY</div><div class="mv" id="bpAuc">—</div><div class="ms" id="bpInf">—</div></div>
@@ -459,14 +500,14 @@
         </div>
         <div class="modelnote">The next-gen financial institution test: how much of the custodied balance sheet gets re-issued as programmable, onchain assets. Mint/redeem-backed equities are the first product to cross the bridge.</div>
       </div>
-      <div class="card netcard" style="grid-column:1/-1">
-        <h2>Tokenized Equity Franchise <small id="bpEqPer">cross-issuer share</small></h2>
-        <div id="bpEq" style="margin-top:6px"></div>
-        <div class="kicker" id="bpKick">—</div>
-      </div>
-      <div class="card" style="grid-column:1/-1">
-        <h2>Backpack Playbook — Frictionless Capital View <small>hover each for rationale &amp; math</small></h2>
-        <div id="bpRecs" style="margin-top:4px"></div>
+        <div class="card">
+          <div class="chead"><span>CUSTODY LEDGER — PROOF OF RESERVES</span><span class="chr">DeFiLlama CEX transparency · measured</span></div>
+          <div id="bpFlows" style="display:flex;flex-direction:column;gap:2px;margin-top:6px"></div>
+        </div>
+        <div class="card mapcard">
+          <div class="chead"><span>VOLUME BY ASSET — SPOT &amp; PERPS</span><span class="chr">CoinGecko tickers · 24h</span></div>
+          <div class="usemap inmap" id="bpMap"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -478,6 +519,12 @@
   </footer>
 </div>
 <div class="tip" id="tip"></div>
+<div id="kbd"><div class="card"><h3>Keyboard shortcuts</h3>
+  <div class="row"><span>Switch tabs</span><span><kbd>1</kbd>–<kbd>5</kbd></span></div>
+  <div class="row"><span>Map: size by volume / fees</span><span><kbd>V</kbd> <kbd>F</kbd></span></div>
+  <div class="row"><span>Download live tearsheet</span><span><kbd>T</kbd></span></div>
+  <div class="row"><span>This overlay</span><span><kbd>?</kbd> · <kbd>Esc</kbd></span></div>
+</div></div>
 <script>
 /** @license
  *
@@ -868,7 +915,7 @@ const EP = {
   aggs:  {url:'https://api.llama.fi/overview/aggregators/solana?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true', ttl:180e3},
   cexs:  {url:'https://api.llama.fi/cexs', ttl:600e3},
   bpspot:{url:'https://api.coingecko.com/api/v3/exchanges/backpack_exchange', ttl:300e3},
-  bpperp:{url:'https://api.coingecko.com/api/v3/derivatives/exchanges/backpack-futures', ttl:300e3},
+  bpperp:{url:'https://api.coingecko.com/api/v3/derivatives/exchanges/backpack-futures?include_tickers=all', ttl:300e3},
   btc:   {url:'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd', ttl:180e3},
   dexsChart:{url:'https://api.llama.fi/overview/dexs/solana?excludeTotalDataChartBreakdown=true&dataType=dailyVolume', ttl:900e3},
 };
@@ -1228,6 +1275,136 @@ function suLine(name, small, val, cls='', title=''){
   return `<div class="suline ${cls}"${title?` title="${title}"`:''}><span class="sn">${name}${small?`<small>${small}</small>`:''}</span><span class="sv">${val}</span></div>`;
 }
 const H_MM=0.50, H_DEX=0.45, H_DRV=0.40;
+function renderUseMap(){
+  const box=el('useMap'); if(!box) return;
+  const nodes2=window.__useNodes; if(!nodes2||!nodes2.length) return;
+  const W2=box.clientWidth,H2=box.clientHeight;
+  if (W2<60||H2<60) return;
+  box.innerHTML='';
+  const dep=nodes2.filter(n=>n.grp!=='Custody & float');
+  const cust=nodes2.filter(n=>n.grp==='Custody & float');
+  const idle=cust.reduce((s2,n)=>s2+n.v,0);
+  const bp2=cust.find(n=>/backpack/i.test(n.name));
+  const depTot=dep.reduce((s2,n)=>s2+n.v,0);
+  const base2=idle+depTot;
+  /* opportunity panel: fixed right zone (~26%), rest is the productive treemap */
+  const oppW=Math.min(Math.max(190,W2*0.26),360);
+  const opp=document.createElement('div');
+  opp.className='oppp';
+  opp.style.cssText=`right:0;top:0;width:${oppW}px;height:${H2}px`;
+  opp.innerHTML=`<div class="oe">Deposit opportunity</div>
+    <div class="ob">${fmt$(idle)}</div>
+    <div class="os">${(100*idle/base2).toFixed(0)}% of the stable base sits un-deployed in custody &amp; payment float \u2014 the money-market and deposit-product TAM.</div>
+    ${bp2?`<div class="obp">of which measured: Backpack PoR ${fmt$(bp2.v)} \u00b7 rest unattributed</div>`:''}`;
+  opp.addEventListener('mousemove',e=>showTip(e,`<div class="tn">The deposit opportunity</div>
+    <div class="ts">custody &amp; payment float, balancing residual</div>
+    <div class="tr"><span>Idle float</span><b>${fmt$(idle)}</b></div>
+    <div class="tr"><span>Share of base</span><b>${(100*idle/base2).toFixed(1)}%</b></div>
+    ${bp2?`<div class="tr"><span>\u21b3 Backpack PoR (measured)</span><b>${fmt$(bp2.v)}</b></div>`:''}
+    <div class="tr"><span>Deployed onchain</span><b>${fmt$(depTot)}</b></div>
+    <div class="tr"><span></span><b style="font-weight:500;color:var(--mut)">panel compressed ~${(idle/depTot*((W2-oppW)/oppW)).toFixed(0)}\u00d7 vs true area \u2014 bar below shows real scale</b></div>`));
+  opp.addEventListener('mouseleave',()=>tip.style.display='none');
+  box.appendChild(opp);
+  /* productive treemap fills the remainder at true proportions among itself */
+  const zone={x:0,y:0,w:W2-oppW-3,h:H2};
+  const groups={}; dep.forEach(n=>{(groups[n.grp]=groups[n.grp]||[]).push(n)});
+  const gitems=Object.entries(groups).map(([k,list])=>({k,w:list.reduce((s2,n)=>s2+n.v,0),list}))
+    .filter(g=>g.w>0).sort((a,b)=>b.w-a.w);
+  const LBL2=15;
+  for (const gr of squarify(gitems,zone)){
+    const g=gr.it;
+    if (gr.w>70&&gr.h>LBL2+16){
+      const gl=document.createElement('div');
+      gl.className='grouplbl';
+      gl.style.cssText=`left:${gr.x+3}px;top:${gr.y+1}px;max-width:${gr.w-6}px`;
+      gl.innerHTML=`<b>${esc(g.k)}</b> \u203a ${fmt$(g.w)}`;
+      box.appendChild(gl);
+    }
+    const inner={x:gr.x+1,y:gr.y+LBL2,w:Math.max(0,gr.w-2),h:Math.max(0,gr.h-LBL2-1)};
+    const items=g.list.map(n=>({w:n.v,n})).sort((a,b)=>b.w-a.w);
+    for (const r of squarify(items,inner)){
+      const n=r.it.n;
+      if (r.w<3||r.h<3) continue;
+      box.appendChild(makeTile(r,{bg:n.color,name:n.name.length>26?n.name.slice(0,25)+'\u2026':n.name,
+        pct:null,val:fmt$(n.v),tipHtml:n.tip}));
+    }
+  }
+}
+function paintGroupMap(box,nodes3){
+  const W3=box.clientWidth,H3=box.clientHeight;
+  if (W3<60||H3<50||!nodes3.length) return false;
+  box.innerHTML='';
+  const groups={}; nodes3.forEach(n=>{(groups[n.grp]=groups[n.grp]||[]).push(n)});
+  const gitems=Object.entries(groups).map(([k,list])=>({k,w:list.reduce((s2,n)=>s2+n.v,0),list}))
+    .filter(g=>g.w>0).sort((a,b)=>b.w-a.w);
+  const LBL3=15;
+  for (const gr of squarify(gitems,{x:0,y:0,w:W3,h:H3})){
+    const g=gr.it;
+    if (gr.w>70&&gr.h>LBL3+16){
+      const gl=document.createElement('div');
+      gl.className='grouplbl';
+      gl.style.cssText=`left:${gr.x+3}px;top:${gr.y+1}px;max-width:${gr.w-6}px`;
+      gl.innerHTML=`<b>${esc(g.k)}</b> \u203a ${fmt$(g.w)}`;
+      box.appendChild(gl);
+    }
+    const inner={x:gr.x+1,y:gr.y+LBL3,w:Math.max(0,gr.w-2),h:Math.max(0,gr.h-LBL3-1)};
+    for (const r of squarify(g.list.map(n=>({w:n.v,n})).sort((a,b)=>b.w-a.w),inner)){
+      const n=r.it.n;
+      if (r.w<3||r.h<3) continue;
+      const t=makeTile(r,{bg:n.color,name:n.name.length>24?n.name.slice(0,23)+'\u2026':n.name,pct:null,val:fmt$(n.v),tipHtml:n.tip});
+      if (n.hl){t.style.outline='2px solid #cfd9f0';t.style.outlineOffset='-2px';t.style.zIndex=2;}
+      box.appendChild(t);
+    }
+  }
+  return true;
+}
+function renderTitanMap(){
+  const box=el('tiMap'); if(!box||!D.aggs) return;
+  const ps=(D.aggs.protocols||[]).map(p=>({n:p.name,v:tot(p)||0,c:pchg(p)})).filter(p=>p.v>0).sort((a,b)=>b.v-a.v);
+  const tt=ps.reduce((s2,p)=>s2+p.v,0); if(!tt) return;
+  const P=PLBL[period];
+  const nodes3=ps.slice(0,12).map((p,i)=>{
+    const isT=/titan/i.test(p.n);
+    return {name:p.n,v:p.v,grp:`Solana router landscape \u00b7 ${P} \u00b7 per-asset mix not published by routers`,
+      color:isT?'#3752a0':['#33415c','#2c3850','#263147','#222b3e'][Math.min(i,3)],hl:isT,
+      tip:`<div class="tn">${esc(p.n)}${isT?' \u2b50':''}</div><div class="ts">router \u00b7 ${P}</div>
+           <div class="tr"><span>Routed volume</span><b>${fmt$(p.v)}</b></div>
+           <div class="tr"><span>Share</span><b>${(100*p.v/tt).toFixed(2)}%</b></div>
+           ${p.c!=null?`<div class="tr"><span>\u0394 vs prior</span><b>${(p.c>=0?'+':'')+p.c.toFixed(1)}%</b></div>`:''}`};
+  });
+  const rest=tt-nodes3.reduce((s2,n)=>s2+n.v,0);
+  if (rest>0) nodes3.push({name:(ps.length-12)+' others',v:rest,grp:nodes3[0].grp,color:'#1d2433',
+    tip:`<div class="tn">${ps.length-12} other routers</div><div class="tr"><span>Combined</span><b>${fmt$(rest)}</b></div>`});
+  paintGroupMap(box,nodes3);
+}
+function renderBpMap(){
+  const box=el('bpMap'); if(!box) return;
+  const stockTicks=new Set(D.tstocks?groupStocks(D.tstocks).map(g=>g.tick.toUpperCase()):[]);
+  const agg=(list,grp,color,getSym,getVol)=>{
+    const by={};
+    for (const t of (list||[])){
+      const sym=(getSym(t)||'').toUpperCase(); const v=parseFloat(getVol(t))||0;
+      if (!sym||v<=0) continue;
+      by[sym]=(by[sym]||0)+v;
+    }
+    const rows=Object.entries(by).sort((a,b)=>b[1]-a[1]);
+    const top=rows.slice(0,12), rest=rows.slice(12).reduce((s2,r)=>s2+r[1],0);
+    const out3=top.map(([sym,v])=>{
+      const isStock=stockTicks.has(sym.replace(/USD$/,''))||stockTicks.has(sym);
+      return {name:sym,v,grp,color:isStock?'#8a6d3b':color,
+        tip:`<div class="tn">${esc(sym)}${isStock?' \ud83d\udcc8 tokenized equity':''}</div><div class="ts">${grp}</div>
+             <div class="tr"><span>Volume 24h</span><b>${fmt$(v)}</b></div>`};
+    });
+    if (rest>0) out3.push({name:rows.length-12+' others',v:rest,grp,color:'#1d2433',
+      tip:`<div class="tn">${rows.length-12} other assets</div><div class="tr"><span>Combined</span><b>${fmt$(rest)}</b></div>`});
+    return out3;
+  };
+  const nodes3=[
+    ...agg(D.bpspot?.tickers,'Spot \u00b7 by base asset \u00b7 24h','#4a86ff',t=>t.base,t=>t.converted_volume?.usd),
+    ...agg(D.bpperp?.tickers,'Perps \u00b7 by underlying \u00b7 24h','#7ba7ff',t=>String(t.symbol||'').split('_')[0],t=>t.converted_volume?.usd),
+  ];
+  paintGroupMap(box,nodes3);
+}
 const PREVKEY={'24h':'circulatingPrevDay','7d':'circulatingPrevWeek','30d':'circulatingPrevMonth','1y':'circulatingPrevMonth'};
 function renderFlows(){
   const stables=D.stables, chains=D.chains;
@@ -1338,6 +1515,39 @@ function renderFlows(){
     el('flDep').textContent=(100*dep/solTotal).toFixed(1)+'%';
     el('tFlDep').title=`Deployed onchain (est.) = money markets + DEX pools + derivatives margin = ${fmt$(dep)} of ${fmt$(solTotal)} (${(100*dep/solTotal).toFixed(1)}%). The other ${(100-100*dep/solTotal).toFixed(0)}% is custody & float — the deposit opportunity.`;
   }
+  /* uses tilemap — fills the card with the deployment picture */
+  window.__useNodes=null;
+  if (mm>0){
+    const tvlList=cats=>D.protos.filter(p=>cats.includes(p.category)&&((p.chainTvls||{}).Solana||0)>5e5)
+      .map(p=>({n:p.name,v:p.chainTvls.Solana})).sort((a,b)=>b.v-a.v);
+    const mk=(list,h,label,color,n)=>{
+      const out2=list.slice(0,n).map(p=>({name:p.n,v:p.v*h,grp:label,color,
+        tip:`<div class="tn">${esc(p.n)}</div><div class="ts">${label}</div>
+             <div class="tr"><span>Est. stable share</span><b>${fmt$(p.v*h)}</b></div>
+             <div class="tr"><span>All-asset TVL</span><b>${fmt$(p.v)}</b></div>
+             <div class="tr"><span>Haircut</span><b>${(100*h).toFixed(0)}% est.</b></div>`}));
+      const rest=list.slice(n).reduce((s2,p)=>s2+p.v,0)*h;
+      if (rest>2e7) out2.push({name:list.length-n+' others',v:rest,grp:label,color,
+        tip:`<div class="tn">${list.length-n} other venues</div><div class="ts">${label}</div><div class="tr"><span>Est. stable share</span><b>${fmt$(rest)}</b></div>`});
+      return out2;
+    };
+    const bpx2=(D.cexs?.cexs||[]).find?.(c=>/backpack/i.test(c.name||''));
+    const custody=[];
+    if (bpx2) custody.push({name:'Backpack PoR',v:bpx2.currentTvl,grp:'Custody & float',color:'#33415c',
+      tip:`<div class="tn">Backpack PoR custody</div><div class="ts">measured, all-asset</div><div class="tr"><span>Wallet balance</span><b>${fmt$(bpx2.currentTvl)}</b></div>`});
+    custody.push({name:'Treasury, merchant & idle float',v:Math.max(0,resid-(bpx2?bpx2.currentTvl:0)),grp:'Custody & float',color:'#2a2c34',
+      tip:`<div class="tn">Treasury, merchant &amp; idle float</div><div class="ts">unattributed residual</div>
+           <div class="tr"><span>Balance</span><b>${fmt$(Math.max(0,resid-(bpx2?bpx2.currentTvl:0)))}</b></div>
+           <div class="tr"><span>Share of base</span><b>${(100*Math.max(0,resid-(bpx2?bpx2.currentTvl:0))/solTotal).toFixed(0)}%</b></div>
+           <div class="tr"><span></span><b style="font-weight:500;color:var(--mut)">the deposit opportunity</b></div>`});
+    window.__useNodes=[
+      ...mk(tvlList(['Lending','CDP']),H_MM,'Money markets','#4a86ff',4),
+      ...mk(tvlList(['Dexs']),H_DEX,'DEX pools','#7ba7ff',3),
+      ...mk(tvlList(['Derivatives']),H_DRV,'Derivatives margin','#a9c4ff',2),
+      ...custody,
+    ];
+  }
+  renderUseMap();
   /* deployment mix bar */
   if (mm>0){
     const segs=[['Money markets',mm,'#4a86ff'],['DEX pools',dx,'#7ba7ff'],['Derivatives',dv,'#a9c4ff'],['Custody & float',resid,'#3f4453']];
@@ -1468,6 +1678,17 @@ function renderTitan(){
     .filter(p=>p.v>0).sort((a,b)=>b.v-a.v);
   const totV=ps.reduce((s,p)=>s+p.v,0);
   const ti=ps.find(p=>/titan/i.test(p.n));
+  if (el('tiScen')&&totV>0&&ti){
+    const dTam=perDay(totV);
+    const cur=100*ti.v/totV;
+    const rows=[[cur,'today \u2014 measured',true],[10,'#2 router territory',false],[25,'category co-leader',false]];
+    el('tiScen').innerHTML=rows.map(([sh,lbl,now])=>{
+      const routed=dTam*365*sh/100, pfof=routed*2/1e4;
+      return `<div class="srow" title="At ${sh.toFixed(sh<10?1:0)}% of the current ${fmt$(dTam)}/day router TAM: routed ${fmt$(routed)}/yr; monetized at 2 bp PFOF-equivalent = ${fmt$(pfof)}/yr. TAM held constant \u2014 growth in the TAM itself is upside.">
+        <span>${now?'<span class=\'hl2\'>':''}${sh.toFixed(sh<10?1:0)}% share${now?'</span>':''} \u00b7 ${lbl}</span>
+        <b>${fmt$(routed)}/yr <span style="color:var(--dim);font-weight:500">\u2192</span> ${fmt$(pfof)}/yr</b></div>`;
+    }).join('');
+  }
   el('tiPer').textContent=PLBL[period]+' · DeFiLlama aggregators';
   {const sh=n=>{const p2=ps.find(x=>new RegExp(n,'i').test(x.n));return p2?100*p2.v/totV:null;};
    if (el('tiTam')){
@@ -1574,6 +1795,16 @@ function renderBackpack(){
     el('tBpPairs').title=`${(D.bpspot?.tickers||[]).length} spot pairs listed (CoinGecko).`;
   }
   {const cx2=(D.cexs?.cexs||[]).find?.(c=>/backpack/i.test(c.name||''));
+   if (!cx2&&el('bpFlows')&&!el('bpFlows').innerHTML) el('bpFlows').innerHTML='<div class="srow"><span>custody feed syncing\u2026 retries automatically</span><b>\u2014</b></div>';
+   if (cx2&&el('bpFlows')){
+    const row=(k,v,money2=true,hl=false,tip2='')=>`<div class="srow" title="${escq(tip2)}"><span>${k}</span><b${hl?' class="hl2"':''}>${v==null?'\u2014':(money2?(v>=0?'+':'')+fmt$(v):v)}</b></div>`;
+    el('bpFlows').innerHTML=
+      row('Assets under custody',fmt$(cx2.currentTvl),false,true,'Total balance across published proof-of-reserves wallets.')+
+      row('Net flow \u00b7 24h',cx2.inflows_24h,true,false,'Net deposits minus withdrawals over 24h, measured onchain.')+
+      row('Net flow \u00b7 7d',cx2.inflows_1w??null,true,false,'Net custody flow over 7 days.')+
+      row('Net flow \u00b7 1m',cx2.inflows_1m,true,false,'Net custody flow over 1 month.')+
+      row('Custody growth \u00b7 1m',cx2.inflows_1m!=null?(100*cx2.inflows_1m/Math.max(1,cx2.currentTvl-cx2.inflows_1m)).toFixed(1)+'%':null,false,false,'1-month net inflow as % of the starting balance.');
+   }
    if (cx2&&el('bpF24')){
      const f=(v,elv,elt,lbl)=>{const e2=el(elv);e2.textContent=(v>=0?'+':'')+fmt$(v);e2.style.color=v>=0?'var(--up)':'var(--down)';el(elt).title=`Net ${lbl} custody flow (proof-of-reserves wallets): ${(v>=0?'+':'')+fmt$(v)}.`;};
      f(cx2.inflows_24h,'bpF24','tBpF24','24h'); f(cx2.inflows_1m,'bpF1m','tBpF1m','1-month');
@@ -1761,16 +1992,19 @@ function switchTab(v){
   requestAnimationFrame(()=>{ // flex sizes settle first
     if (v==='vmap') renderMap();
     if (v==='veq') renderEquities();
+    if (v==='vflows') renderUseMap();
+    if (v==='vtitan') renderTitanMap();
+    if (v==='vbp') renderBpMap();
   });
   if (v==='vflows'){
     if (!D.protos) fetchJSON('protos').then(d=>{D.protos=d;renderFlows();});
     if (!D.cexs) fetchJSON('cexs').then(d=>{D.cexs=d;renderFlows();});
   }
-  if (v==='vtitan'&&!D.aggs) fetchJSON('aggs').then(d=>{D.aggs=d;renderTitan();renderHeader();});
+  if (v==='vtitan'&&!D.aggs) fetchJSON('aggs').then(d=>{D.aggs=d;renderTitan();renderHeader();renderTitanMap();});
   if (v==='vtitan'&&D.aggs) renderTitan();
   if (v==='vbp'){
     const need=['cexs','bpspot','bpperp','btc'].filter(k=>!D[k]);
-    if (need.length){(async()=>{for(const k of need){D[k]=await fetchJSON(k);await sleep(250);}renderBackpack();renderHeader();})();}
+    if (need.length){(async()=>{for(const k of need){D[k]=await fetchJSON(k);await sleep(250);}renderBackpack();renderHeader();renderBpMap();})();}
     else renderBackpack();
   }
 }
@@ -1815,7 +2049,7 @@ function setMetric(m){
     : 'size = 24h fees · color = 24h fee change · dark AMMs earn spread, not fees — they shrink here by design';
   renderMap();
 }
-let rto;addEventListener('resize',()=>{clearTimeout(rto);rto=setTimeout(()=>{if(activeView==='vmap')renderMap();if(activeView==='veq')renderEquities();},180);});
+let rto;addEventListener('resize',()=>{clearTimeout(rto);rto=setTimeout(()=>{if(activeView==='vmap')renderMap();if(activeView==='veq')renderEquities();if(activeView==='vflows')renderUseMap();if(activeView==='vtitan')renderTitanMap();if(activeView==='vbp')renderBpMap();},180);});
 
 /* ============ REFRESH ============ */
 async function refresh(){
@@ -1842,6 +2076,7 @@ async function refresh(){
   if (ok) lastGood=now();
   dot.className='dot '+(ok?(anyBackoff?'stale':''):(lastGood?'stale':'err'));
   msg.textContent=ok?'live':(lastGood?'stale · retrying':'offline · retrying');
+  if (ok){lastRefreshTs=Date.now();const d2=el('dot');d2.classList.remove('beat');void d2.offsetWidth;d2.classList.add('beat');}
   refreshing=false;
 }
 setInterval(()=>{
@@ -2213,6 +2448,21 @@ try{
   if (pp&&PDAYS[pp]){period=pp;
     document.querySelectorAll('.pbtn').forEach(x=>x.classList.toggle('on',x.dataset.p===pp));}
 }catch(e){}
+let lastRefreshTs=Date.now();
+setInterval(()=>{
+  const lm=el('livemsg');
+  if (lm&&lm.textContent.startsWith('live')){
+    const ago=Math.round((Date.now()-lastRefreshTs)/1000);
+    lm.textContent='live · '+(ago<3?'just now':ago+'s ago');
+  }
+},1000);
+addEventListener('keydown',e=>{
+  if (e.key==='?'){el('kbd').classList.toggle('on');}
+  if (e.key==='Escape'){el('kbd').classList.remove('on');}
+  if ((e.key==='t'||e.key==='T')&&!e.metaKey&&!e.ctrlKey){downloadLiveTearsheet();}
+  if ((e.key==='v'||e.key==='V')&&activeView==='vmap') el('btnVol').click();
+  if ((e.key==='f'||e.key==='F')&&activeView==='vmap') el('btnFees').click();
+});
 buildLegend();
 buildScale('mapscale',['−30%','−20%','−10%','0%','+10%','+20%','+30%']);
 buildScale('eqscale',['−3%','−2%','−1%','0%','+1%','+2%','+3%']);
