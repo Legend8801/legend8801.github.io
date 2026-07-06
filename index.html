@@ -187,6 +187,10 @@
   .sublines{display:none}
   .sublines.open{display:block}
   .scenrow:hover,.recrow:hover,.srcrow:hover{background:#17181d}
+  .mapchips{display:flex;gap:6px}
+  .mchip{font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:help;white-space:nowrap}
+  .mchip b{color:var(--tx);font-weight:700}
+  .mchip .new{color:var(--up);font-weight:700}
   .viewct{color:var(--dim)}
   .viewct b{color:var(--mut);font-weight:700}
   .divlbl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700;
@@ -259,14 +263,7 @@
     <div class="brand">
       <h1>SOLANA NETWORK ACTIVITY</h1>
       <img class="logow" alt="Frictionless Capital" src="data:image/png;base64,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"></div>
-    <div class="stats">
-      <div class="stat" id="tSol"><span class="k">SOL</span><span class="v" id="solpx">—</span><span class="chg" id="solchg"></span></div>
-      <div class="stat" id="tVol"><span class="k">DEX Vol 24h</span><span class="v" id="vol24">—</span></div>
-      <div class="stat fc" id="tFc"><span class="k">Network fees 24h</span><span class="v" id="fcap">—</span></div>
-      <div class="stat" id="tVelo"><span class="k">Velocity</span><span class="v" id="velo">—</span></div>
-      <div class="stat" id="tTake"><span class="k">Network take</span><span class="v" id="nettake">—</span></div>
-      <div class="stat ratio" id="tRatio"><span class="k">App : Chain</span><span class="v" id="ratio">—</span></div>
-    </div>
+    <div class="stats" id="stats"></div>
     <div class="live">
       <a class="dlbtn" id="dlpdf" download="solana-network-snapshot-2026-07-02.pdf" title="Download the Solana Network Snapshot research PDF (static build of July 02, 2026; live figures continue updating on this page)">⬇ Tearsheet <span class="dt">July 02, 2026</span></a>
       <span class="dot busy" id="dot"></span><span id="livemsg">connecting…</span></div>
@@ -274,7 +271,7 @@
 
   <div class="bar">
     <div class="tabs" role="tablist">
-      <button class="tab on" data-v="vmap" role="tab" aria-selected="true">Liquidity Map<small>1</small></button>
+      <button class="tab on" data-v="vmap" role="tab" aria-selected="true">Trading Ecosystem<small>1</small></button>
       <button class="tab" data-v="vflows" role="tab" aria-selected="false">Stablecoin Flows<small>2</small></button>
       <button class="tab" data-v="veq" role="tab" aria-selected="false">Tokenized Equities<small>3</small></button>
       <button class="tab" data-v="vtitan" role="tab" aria-selected="false">Titan<small>4</small></button>
@@ -284,6 +281,7 @@
       <div class="ctrl" id="mapctrl">
         <span class="mflabel">SIZE BY</span>
         <div class="metricflip"><button class="mbtn on" id="btnVol">VOLUME</button><button class="mbtn" id="btnFees">FEES</button></div>
+        <div class="mapchips" id="mapChips"></div>
         <div class="legend" id="legend" role="group" aria-label="Toggle sectors"></div>
       </div>
       <div class="pflip" role="group" aria-label="Time window" title="Master window — applies to volumes, fees, take rates, flows and market share across every tab">
@@ -1211,7 +1209,7 @@ function renderFlows(){
   const solRich=assets.map(a=>({sym:a.symbol,name:a.name,v:onSol(a),d:onSol(a)-onSolPrev(a),
       mech:(a.pegMechanism||'').replace('-backed','')})).filter(a=>a.v>1e6).sort((a,b)=>b.v-a.v);
   const MTAG={'fiat':'FIAT','crypto':'CRYPTO','algorithmic':'ALGO'};
-  const topN=solRich.slice(0,8);
+  const topN=solRich.slice(0,6);
   const rest=solTotal-topN.reduce((s,a)=>s+a.v,0);
   const d7=v=>Math.abs(v)<2.5e5?'':`<span class="d7 ${v>=0?'up':'down'}">${v>=0?'+':'−'}${fmt$(Math.abs(v)).slice(1)}</span>`;
   let src='';
@@ -1488,12 +1486,12 @@ function renderBackpack(){
     if (p.issuer==='Backpack') bpTok+=c.market_cap||0;
   }
   groups.forEach(g=>{allVol+=g.vol;g.issues.forEach(i=>{if(i.issuer==='Backpack')bpVol+=i.vol;});});
-  el('bpTok').textContent=fmt$(bpTok);
+  el('bpTok').textContent=bpTok>0?fmt$(bpTok):'\u2014';
   el('bpTokT').title=`Tokenized outstanding = Σ market cap of Backpack-issued equity tokens = ${fmt$(bpTok)} (CoinGecko, wash-filtered). Mint/redeem-backed — the "Tether of stocks" float.`;
-  if (cx&&cx.currentTvl>0){
+  if (cx&&cx.currentTvl>0&&bpTok>0){
     el('bpBridge').textContent=(100*bpTok/cx.currentTvl).toFixed(1)+'%';
     el('bpBridgeT').title=`CeFi→DeFi bridge ratio = tokenized float ÷ AUC = ${fmt$(bpTok)} ÷ ${fmt$(cx.currentTvl)} = ${(100*bpTok/cx.currentTvl).toFixed(1)}%. The share of the custodied balance sheet re-issued as onchain programmable assets.`;
-  }
+  } else { el('bpBridge').textContent='\u2014'; el('bpBridgeT').title='CoinGecko is not reporting Backpack token market caps right now \u2014 ratio hidden rather than shown as zero.'; }
   el('bpEqPer').textContent='24h volume share by issuer · Backpack tokenized float '+fmt$(bpTok);
   const byIss={};
   groups.forEach(g=>g.issues.forEach(i=>{byIss[i.issuer]=(byIss[i.issuer]||0)+i.vol;}));
@@ -1529,43 +1527,106 @@ function renderBackpack(){
   el('bpRecs').innerHTML=recs.map(([n,t,tip,v])=>
     `<div class="recrow" title="${esc(tip)}"><span class="rn"><i>${n}</i><b>${esc(t)}</b></span><span class="rv">${esc(v)}</span></div>`).join('');
 }
-/* ============ HEADER (dynamic tooltips) ============ */
+/* ============ HEADER — per-tab contextual banner ============ */
+const escq=t=>String(t).replace(/"/g,'&quot;');
+function bstat(k,v,title,cls=''){
+  return `<div class="stat ${cls}" title="${escq(title)}"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+}
 function renderHeader(){
+  const box=el('stats'); if(!box) return;
+  const out=[];
   const m=D.sol?.['So11111111111111111111111111111111111111112'];
-  if (m){
-    el('solpx').textContent='$'+m.usdPrice.toFixed(2);
-    const c=el('solchg');
-    c.textContent=(m.priceChange24h>=0?'+':'')+m.priceChange24h.toFixed(1)+'%';
-    c.className='chg '+(m.priceChange24h>=0?'up':'down');
-    el('tSol').title=`SOL/USD via Jupiter aggregated onchain price. 24h change ${m.priceChange24h.toFixed(2)}%.`;
-  }
-  const vol=D.dexs?tot(D.dexs):null;
-  if (vol!=null){
-    el('vol24').textContent=fmt$(vol);
-    document.querySelector('#tVol .k').textContent='DEX Vol '+PLBL[period];
-    el('tVol').title=`Sum of ${PLBL[period]} volume across all Solana DEX venues (DeFiLlama): ${fmt$(vol)}.`;
-  }
+  if (m) out.push(`<div class="stat" title="SOL/USD via Jupiter aggregated onchain price. 24h change ${m.priceChange24h.toFixed(2)}%."><span class="k">SOL</span><span class="v">$${m.usdPrice.toFixed(2)}</span><span class="chg ${m.priceChange24h>=0?'up':'down'}">${(m.priceChange24h>=0?'+':'')+m.priceChange24h.toFixed(1)}%</span></div>`);
+  const vol=D.dexs?tot(D.dexs):null, P=PLBL[period];
   let app=0,net=0;
   (D.fees?.protocols||[]).forEach(p=>{classify(p)==='net'?net+=(tot(p)||0):app+=(tot(p)||0);});
-  if (net>0){
-    el('ratio').textContent=(app/net).toFixed(1)+'\u00d7';
-    el('tRatio').title=`App : Chain (${PLBL[period]}) = application fees ÷ network revenue\n= ${fmt$(app)} ÷ ${fmt$(net)} = ${(app/net).toFixed(2)}×\nNetwork revenue = tx fees (base+priority) + MEV tips.`;
-    if (vol>0){
-      el('nettake').textContent=(1e4*net/vol).toFixed(1)+' bp';
-      el('tTake').title=`Network take (${PLBL[period]}) = network revenue ÷ DEX volume\n= ${fmt$(net)} ÷ ${fmt$(vol)} = ${(1e4*net/vol).toFixed(2)} bp (weighted avg — see card breakdown).`;
-    }
-  }
   const solc=D.tvl?.find?.(c=>c.name==='Solana');
-  if (solc&&vol>0){
-    const vd=perDay(vol);
-    el('velo').textContent=(vd/solc.tvl).toFixed(2)+'\u00d7';
-    el('tVelo').title=`Velocity = DEX volume/day ÷ DeFi TVL\n= ${fmt$(vd)}/d ÷ ${fmt$(solc.tvl)} = ${(vd/solc.tvl).toFixed(2)}× per day (${(365*vd/solc.tvl).toFixed(0)}× annualized). Window: ${PLBL[period]}.`;
+  const onSol=a=>((((a.chainCirculating||{}).Solana||{}).current)||{}).peggedUSD||0;
+  const base=(D.stables?.peggedAssets||[]).reduce((s,a)=>s+onSol(a),0);
+
+  if (activeView==='vmap'){
+    if (vol!=null) out.push(bstat('DEX Vol '+P,fmt$(vol),`Sum of ${P} volume across all Solana DEX venues (DeFiLlama): ${fmt$(vol)}.`));
+    if (net>0) out.push(bstat('Network fees '+P,fmt$(net),`Network fees (${P}) = tx fees (base+priority) + MEV & builder tips = ${fmt$(net)} (${fmt$(perDay(net)*365)}/yr run-rate). Breakdown in the Take Rate card.`,'fc'));
+    if (solc&&vol>0) out.push(bstat('Velocity',(perDay(vol)/solc.tvl).toFixed(2)+'\u00d7',`Velocity = DEX volume/day \u00f7 DeFi TVL = ${fmt$(perDay(vol))}/d \u00f7 ${fmt$(solc.tvl)} = ${(perDay(vol)/solc.tvl).toFixed(2)}\u00d7/day (${(365*perDay(vol)/solc.tvl).toFixed(0)}\u00d7 annualized).`));
+    if (net>0&&vol>0) out.push(bstat('Network take',(1e4*net/vol).toFixed(1)+' bp',`Network take (${P}) = network revenue \u00f7 DEX volume = ${fmt$(net)} \u00f7 ${fmt$(vol)} = ${(1e4*net/vol).toFixed(2)} bp weighted avg.`));
+    if (net>0) out.push(bstat('App : Chain',(app/net).toFixed(1)+'\u00d7',`App : Chain (${P}) = application fees \u00f7 network revenue = ${fmt$(app)} \u00f7 ${fmt$(net)} = ${(app/net).toFixed(2)}\u00d7.`,'ratio'));
+  } else if (activeView==='vflows'){
+    const pk=PREVKEY[period], pcap=period==='1y'?'30d':PLBL[period];
+    const prev=(D.stables?.peggedAssets||[]).reduce((s,a)=>s+(((((a.chainCirculating||{}).Solana||{})[pk])||{}).peggedUSD||0),0);
+    const inflow=base-prev;
+    const glob=(D.chains||[]).reduce((s,c)=>s+(((c.totalCirculatingUSD||{}).peggedUSD)||0),0);
+    const rank=(D.chains||[]).map(c=>({n:c.name,v:((c.totalCirculatingUSD||{}).peggedUSD)||0})).sort((a,b)=>b.v-a.v).findIndex(c=>c.n==='Solana')+1;
+    if (base>0){
+      out.push(bstat('Stable base',fmt$(base),`Total stablecoin supply issued on Solana: ${fmt$(base)}.`));
+      out.push(bstat('Net inflow '+pcap,(inflow>=0?'+':'')+fmt$(inflow),`Net change in Solana stablecoin supply over ${pcap} = ${(inflow>=0?'+':'')+fmt$(inflow)}.`,'fc'));
+      if (vol) out.push(bstat('Turnover',(perDay(vol)/base).toFixed(2)+'\u00d7/d',`Stable turnover = DEX volume/day \u00f7 stable base = ${fmt$(perDay(vol))} \u00f7 ${fmt$(base)} = ${(perDay(vol)/base).toFixed(2)}\u00d7 daily (${(30*perDay(vol)/base).toFixed(0)}\u00d7/mo).`));
+      if (glob>0) out.push(bstat('Global share',(100*base/glob).toFixed(1)+'% \u00b7 #'+rank,`Solana holds ${(100*base/glob).toFixed(1)}% of the ${fmt$(glob)} global stablecoin base \u2014 chain #${rank} by supply.`));
+      out.push(bstat('Float income',fmt$(base*0.04)+'/yr',`Float income pool (est.) = stable base \u00d7 ~4% T-bill yield = ${fmt$(base*0.04)}/yr \u2014 the revenue issuers keep today.`,'ratio'));
+    }
+  } else if (activeView==='veq'){
+    const gs=groupStocks(D.tstocks);
+    const eqv=gs.reduce((s,g)=>s+g.vol,0), mc=gs.reduce((s,g)=>s+g.mc,0);
+    const issues=gs.reduce((s,g)=>s+g.issues.length,0);
+    if (gs.length){
+      out.push(bstat('Equity vol 24h',fmt$(eqv),`Tokenized-equity volume, cross-venue, de-duplicated: ${fmt$(eqv)}/24h (CoinGecko granularity is 24h only).`));
+      out.push(bstat('Tokenized float',fmt$(mc),`\u03a3 market cap of tracked tokenized equities = ${fmt$(mc)}.`,'fc'));
+      out.push(bstat('Listings',gs.length+' \u00b7 '+issues+' issues',`${gs.length} underlyings across ${issues} issuer listings.`));
+      out.push(bstat('Top share',gs[0].tick+' '+(100*gs[0].vol/eqv).toFixed(0)+'%',`${gs[0].tick} is ${(100*gs[0].vol/eqv).toFixed(1)}% of tokenized-equity volume.`));
+      if (base>0) out.push(bstat('Frictionless capital',fmt$(base+mc),`Stables on Solana (${fmt$(base)}) + tokenized-equity float (${fmt$(mc)}) = ${fmt$(base+mc)}.`,'ratio'));
+    }
+  } else if (activeView==='vtitan'){
+    if (D.aggs){
+      const ps=(D.aggs.protocols||[]).map(p=>({n:p.name,v:tot(p)||0,c:pchg(p)})).filter(p=>p.v>0).sort((a,b)=>b.v-a.v);
+      const tt=ps.reduce((s,p)=>s+p.v,0), ti=ps.find(p=>/titan/i.test(p.n));
+      if (ti){
+        out.push(bstat('Routed '+P,fmt$(ti.v),`Titan routed volume over ${P}: ${fmt$(ti.v)} (DeFiLlama).`));
+        out.push(bstat('Router share',(100*ti.v/tt).toFixed(2)+'%',`Titan \u00f7 all Solana aggregator volume = ${fmt$(ti.v)} \u00f7 ${fmt$(tt)} = ${(100*ti.v/tt).toFixed(2)}% (${P}).`,'ratio'));
+        out.push(bstat('Rank','#'+(ps.indexOf(ti)+1)+' of '+ps.length,`Titan's position among Solana routers by ${P} volume.`));
+        out.push(bstat('Run-rate',fmt$(perDay(ti.v)*365)+'/yr',`${fmt$(perDay(ti.v))}/day avg \u00d7 365 = ${fmt$(perDay(ti.v)*365)} routed annually.`));
+        if (ti.c!=null) out.push(bstat('\u0394 vs prior',(ti.c>=0?'+':'')+ti.c.toFixed(1)+'%',`Change vs the prior ${P} window.`,ti.c>=0?'fc':''));
+      }
+    } else out.push(bstat('Titan','loading\u2026','Fetching aggregator data\u2026'));
+  } else if (activeView==='vbp'){
+    const btc=D.btc?.bitcoin?.usd, cx=(D.cexs?.cexs||[]).find?.(c=>/backpack/i.test(c.name||''));
+    if (btc&&D.bpspot&&D.bpperp&&cx){
+      const spot=parseFloat(D.bpspot.trade_volume_24h_btc)*btc, perp=parseFloat(D.bpperp.trade_volume_24h_btc)*btc;
+      const oi=(parseFloat(D.bpperp.open_interest_btc)||0)*btc;
+      let tok=0; for (const c of cleanStocks(D.tstocks)) if (parseIssue(c).issuer==='Backpack') tok+=c.market_cap||0;
+      out.push(bstat('Spot 24h',fmt$(spot),`Backpack spot volume: ${fmt$(spot)} across ${(D.bpspot.tickers||[]).length} pairs (24h only).`));
+      out.push(bstat('Perps 24h',fmt$(perp),`Backpack perps volume: ${fmt$(perp)} \u00b7 OI ${fmt$(oi)}.`));
+      out.push(bstat('AUC',fmt$(cx.currentTvl),`Assets under custody (proof-of-reserves wallets): ${fmt$(cx.currentTvl)}.`,'fc'));
+      if (tok>0){
+      out.push(bstat('Tokenized float',fmt$(tok),`\u03a3 market cap of Backpack-issued equity tokens: ${fmt$(tok)}.`));
+      out.push(bstat('CeFi\u2192DeFi bridge',(100*tok/cx.currentTvl).toFixed(1)+'%',`Tokenized float \u00f7 AUC = ${fmt$(tok)} \u00f7 ${fmt$(cx.currentTvl)} = ${(100*tok/cx.currentTvl).toFixed(1)}%.`,'ratio'));
+      } else out.push(bstat('Tokenized float','\u2014','CoinGecko is not reporting market caps for Backpack-issued tokens at the moment; float and bridge ratio are hidden rather than shown as zero.'));
+    } else out.push(bstat('Backpack','loading\u2026','Fetching exchange data\u2026'));
   }
-  if (net>0){
-    el('fcap').textContent=fmt$(net);
-    document.querySelector('#tFc .k').textContent='Network fees '+PLBL[period];
-    el('tFc').title=`Network fees (${PLBL[period]}) = transaction fees (base + priority) + MEV & builder tips paid to validators\n= ${fmt$(net)} (${yrFmt(perDay(net))}/yr run-rate). Breakdown in the Take Rate card.`;
+  box.innerHTML=out.join('');
+}
+
+/* ============ MAP CHIPS: listings + meme pipeline ============ */
+function renderMapChips(){
+  const box=el('mapChips'); if(!box||!D.dexs) return;
+  const chips=[];
+  if (D.tstocks){
+    const gs=groupStocks(D.tstocks);
+    const ticks=gs.map(g=>g.tick);
+    let newOnes=[];
+    try{
+      const seen=new Set(JSON.parse(localStorage.getItem('fc_seen_ticks')||'[]'));
+      if (seen.size) newOnes=ticks.filter(t=>!seen.has(t));
+      localStorage.setItem('fc_seen_ticks',JSON.stringify([...new Set([...seen,...ticks])]));
+    }catch(e){}
+    const issues=gs.reduce((s,g)=>s+g.issues.length,0);
+    chips.push(`<span class="mchip" title="${escq(gs.length+' tokenized underlyings across '+issues+' issuer listings.'+(newOnes.length?' New since your last visit: '+newOnes.slice(0,8).join(', ')+'.':' No new listings since your last visit.'))}">Stocks listed <b>${gs.length}</b>${newOnes.length?` <span class="new">+${newOnes.length} new</span>`:''}</span>`);
   }
+  let launchV=0,memeV=0,launchF=0;
+  (D.dexs.protocols||[]).forEach(p2=>{const s2=classify(p2);const v2=tot(p2)||0;if(s2==='launch')launchV+=v2;if(s2==='memes')memeV+=v2;});
+  (D.fees?.protocols||[]).forEach(p2=>{if(classify(p2)==='launch')launchF+=tot(p2)||0;});
+  const px=D.sol?.['So11111111111111111111111111111111111111112']?.usdPrice||0;
+  const bonded=px>0?Math.round(launchF*0.35/(2*px)):null;
+  chips.push(`<span class="mchip" title="${escq('Meme pipeline ('+PLBL[period]+'): '+fmt$(launchV)+' traded on bonding curves \u2192 est. '+(bonded??'\u2014')+' tokens bonded to secondary venues \u2192 '+fmt$(memeV)+' of secondary meme volume. Bonded count is a rough model (assumes ~35% of launchpad fees are graduation-linked at ~2 SOL each) \u2014 order-of-magnitude only.')}">Memes bonded <b>~${bonded==null?'\u2014':bonded.toLocaleString()}</b> \u00b7 ${fmt$(launchV)} curves</span>`);
+  box.innerHTML=chips.join('');
 }
 
 /* ============ CONTROLS ============ */
@@ -1575,6 +1636,7 @@ function switchTab(v){
   document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));
   el('mapctrl').style.visibility = v==='vmap'?'visible':'hidden';
   tip.style.display='none';
+  renderHeader();
   requestAnimationFrame(()=>{ // flex sizes settle first
     if (v==='vmap') renderMap();
     if (v==='veq') renderEquities();
@@ -1583,11 +1645,11 @@ function switchTab(v){
     if (!D.protos) fetchJSON('protos').then(d=>{D.protos=d;renderFlows();});
     if (!D.cexs) fetchJSON('cexs').then(d=>{D.cexs=d;renderFlows();});
   }
-  if (v==='vtitan'&&!D.aggs) fetchJSON('aggs').then(d=>{D.aggs=d;renderTitan();});
+  if (v==='vtitan'&&!D.aggs) fetchJSON('aggs').then(d=>{D.aggs=d;renderTitan();renderHeader();});
   if (v==='vtitan'&&D.aggs) renderTitan();
   if (v==='vbp'){
     const need=['cexs','bpspot','bpperp','btc'].filter(k=>!D[k]);
-    if (need.length){(async()=>{for(const k of need){D[k]=await fetchJSON(k);await sleep(250);}renderBackpack();})();}
+    if (need.length){(async()=>{for(const k of need){D[k]=await fetchJSON(k);await sleep(250);}renderBackpack();renderHeader();})();}
     else renderBackpack();
   }
 }
@@ -1602,8 +1664,9 @@ addEventListener('keydown',e=>{
 });
 document.querySelectorAll('.pbtn').forEach(b=>b.onclick=()=>{
   period=b.dataset.p;
+  try{localStorage.setItem('fc_period',period);}catch(e){}
   document.querySelectorAll('.pbtn').forEach(x=>x.classList.toggle('on',x===b));
-  buildNodes(); renderHeader(); renderNetworkTake(); renderFlows();
+  buildNodes(); renderHeader(); renderMapChips(); renderNetworkTake(); renderFlows();
   if (activeView==='vmap') renderMap();
   if (activeView==='veq') renderEquities();
   if (activeView==='vtitan'&&D.aggs) renderTitan();
@@ -1648,7 +1711,7 @@ async function refresh(){
   if (activeView==='vflows'&&!D.protos){await sleep(220);D.protos=await fetchJSON('protos');}
   if (activeView==='vtitan'){await sleep(200);D.aggs=await fetchJSON('aggs');}
   if (activeView==='vbp'){for(const k of ['cexs','bpspot','bpperp','btc']){await sleep(200);D[k]=await fetchJSON(k);}}
-  buildNodes(); renderHeader(); renderNetworkTake(); renderFlows();
+  buildNodes(); renderHeader(); renderMapChips(); renderNetworkTake(); renderFlows();
   if (activeView==='vmap') renderMap();
   if (activeView==='veq') renderEquities();
   if (activeView==='vtitan') renderTitan();
@@ -1720,6 +1783,7 @@ function buildSnapshotLive(){
   S.eqtotal=gs.reduce((s,g)=>s+g.vol,0); S.eqmc=gs.reduce((s,g)=>s+g.mc,0);
   S.frictionless=S.soltotal+S.eqmc;
   S.eqs=gs.slice(0,6).map(g=>({tick:g.tick,comp:g.company,v:g.vol,ch:g.chg,ni:g.issues.length}));
+  S.eq_underlyings=gs.length; S.eq_issues=gs.reduce((s2,g)=>s2+g.issues.length,0);
   if (D.aggs){
     const ps=(D.aggs.protocols||[]).map(p=>({n:p.name,v:t24(p)})).filter(p=>p.v>0).sort((a,b)=>b.v-a.v);
     const tt=ps.reduce((s,p)=>s+p.v,0), ti=ps.find(p=>/titan/i.test(p.n));
@@ -1731,7 +1795,7 @@ function buildSnapshotLive(){
   if (cx&&btc&&D.bpspot&&D.bpperp){
     let tok=0; for (const c of cleanStocks(D.tstocks)) if (parseIssue(c).issuer==='Backpack') tok+=c.market_cap||0;
     S.backpack={spot:parseFloat(D.bpspot.trade_volume_24h_btc)*btc,perp:parseFloat(D.bpperp.trade_volume_24h_btc)*btc,
-      oi:(parseFloat(D.bpperp.open_interest_btc)||0)*btc,auc:cx.currentTvl,tok,bridge:100*tok/cx.currentTvl};
+      oi:(parseFloat(D.bpperp.open_interest_btc)||0)*btc,auc:cx.currentTvl,tok:tok>0?tok:null,bridge:tok>0?100*tok/cx.currentTvl:null};
   }
   if (D.dexsChart?.totalDataChart) S.vol30=D.dexsChart.totalDataChart.slice(-30).map(x=>x[1]);
   return S;
@@ -1877,7 +1941,7 @@ function buildTearsheetPDF(S, jsPDFCtor, logoData){
   T(M,ly,'Source: DeFiLlama. Stable-share haircuts are estimates (50/45/40% of all-asset TVL); residual is CEX custody & float.',6,DIM); ly+=14;
 
   /* ---- table 2: equities (dynamic row budget) ---- */
-  T(M,ly,`Table 2: Tokenized equities — ${money(S.eqtotal)}/24h cross-venue, de-duplicated`,7.5,INK,'helvetica','bold'); ly+=9;
+  T(M,ly,`Table 2: Tokenized equities — ${money(S.eqtotal)}/24h · ${S.eq_underlyings||'—'} underlyings, ${S.eq_issues||'—'} issues, de-duplicated`,7.5,INK,'helvetica','bold'); ly+=9;
   rect(M,ly-6,LW,10,BAND);
   const cols=[M,M+46,M+170,M+216,M+276,M+330];
   ['Ticker','Underlying','Issuers','Vol 24h','Chg 24h','Share'].forEach((h,i)=>T(cols[i]+2,ly+1,h,6.4,NAVY,'helvetica','bold'));
@@ -1946,7 +2010,7 @@ function buildTearsheetPDF(S, jsPDFCtor, logoData){
     if (S.backpack){
       stat('Backpack · spot / perps',money(S.backpack.spot)+' / '+money(S.backpack.perp));
       stat('   AUC (PoR wallets)',money(S.backpack.auc)+'  ·  OI '+money(S.backpack.oi),true);
-      stat('   tokenized float',money(S.backpack.tok)+'  ·  bridge '+S.backpack.bridge.toFixed(1)+'%',true);
+      if (S.backpack.tok!=null) stat('   tokenized float',money(S.backpack.tok)+'  ·  bridge '+S.backpack.bridge.toFixed(1)+'%',true);
     }
     ry+=6;
   }
@@ -2023,6 +2087,11 @@ el('suUses').addEventListener('click',e=>{
   const sub=p.nextElementSibling;
   if (sub&&sub.classList.contains('sublines')) sub.classList.toggle('open');
 });
+try{
+  const pp=localStorage.getItem('fc_period');
+  if (pp&&PDAYS[pp]){period=pp;
+    document.querySelectorAll('.pbtn').forEach(x=>x.classList.toggle('on',x.dataset.p===pp));}
+}catch(e){}
 buildLegend();
 buildScale('mapscale',['−30%','−20%','−10%','0%','+10%','+20%','+30%']);
 buildScale('eqscale',['−3%','−2%','−1%','0%','+1%','+2%','+3%']);
