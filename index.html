@@ -1686,7 +1686,7 @@ function renderHeader(){
       out.push(bstat('Equity vol 24h',fmt$(eqv),`Tokenized-equity volume, cross-venue, de-duplicated: ${fmt$(eqv)}/24h (CoinGecko granularity is 24h only).`));
       out.push(bstat('Tokenized float',fmt$(mc),`\u03a3 market cap of tracked tokenized equities = ${fmt$(mc)}.`,'fc'));
       out.push(bstat('Listings',gs.length+' \u00b7 '+issues+' issues',`${gs.length} underlyings across ${issues} issuer listings.`));
-      if (base>0) out.push(bstat('Frictionless capital',fmt$(base+mc),`Stables on Solana (${fmt$(base)}) + tokenized-equity float (${fmt$(mc)}) = ${fmt$(base+mc)}.`,'ratio'));
+      if (base>0) out.push(bstat('Stablecoin + stock float',fmt$(base+mc),`Stables on Solana (${fmt$(base)}) + tokenized-equity float (${fmt$(mc)}) = ${fmt$(base+mc)} settling with atomic finality.`,'ratio'));
     }
   } else if (activeView==='vtitan'){
     if (D.aggs){
