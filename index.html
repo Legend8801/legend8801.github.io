@@ -20,13 +20,13 @@
   .wrap{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:1500px;margin:0 auto;padding:0 14px}
 
   /* ---------- header ---------- */
-  header{display:flex;align-items:center;justify-content:space-between;gap:14px;
-    padding:10px 2px 8px;border-bottom:1px solid var(--line);flex-wrap:wrap;flex:none}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    height:54px;padding:0 2px;border-bottom:1px solid var(--line);flex-wrap:nowrap;flex:none;overflow:hidden}
   .brand{display:flex;align-items:center;gap:12px}
-  .brand h1{font-size:14px;font-weight:800;letter-spacing:.3px}
+  .brand h1{font-size:13px;font-weight:800;letter-spacing:.3px;white-space:nowrap}
   .brand .sub{font-size:10.5px;color:var(--dim)}
-  .stats{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-  .stat{display:flex;align-items:baseline;gap:6px;cursor:var(--curinfo);padding:5px 0;line-height:1}
+  .stats{display:flex;gap:16px;flex-wrap:nowrap;align-items:center;min-width:0;overflow:hidden}
+  .stat{display:flex;align-items:baseline;gap:6px;cursor:var(--curinfo);padding:5px 0;line-height:1;flex:none;white-space:nowrap}
   .stat .v{line-height:1} .stat .k{line-height:1}
   .stat .k{font-size:10.5px;color:var(--mut)}
   .stat .v{font-size:13px;font-weight:700}
@@ -177,8 +177,8 @@
   .deploylbl{display:flex;gap:14px;flex-wrap:wrap;font-size:9px;color:var(--dim);margin:3px 14px 0;flex:none}
   .deploylbl i{width:7px;height:7px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:-1px}
   .brand img.logow{height:20px;display:block;filter:invert(1) brightness(1.05);opacity:.95}
-  .dlbtn{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:#0b0b0e;
-    background:#e8e9ed;border:0;border-radius:6px;padding:6px 12px;cursor:pointer;text-decoration:none;letter-spacing:.2px}
+  .dlbtn{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#0b0b0e;
+    background:#e8e9ed;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;text-decoration:none;letter-spacing:.2px;white-space:nowrap}
   .dlbtn:hover{background:#fff}
   .dlbtn .dt{color:#3752a0;font-weight:800}
   .suline.expand{user-select:none;cursor:pointer}
@@ -191,6 +191,9 @@
   .mchip{font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:help;white-space:nowrap}
   .mchip b{color:var(--tx);font-weight:700}
   .mchip .new{color:var(--up);font-weight:700}
+  .substrip{display:flex;gap:20px;flex-wrap:wrap;align-items:baseline;padding:1px 2px 8px;flex:none}
+  .substrip .stat .v{font-size:12.5px}
+  .substrip .stat .k{font-size:10px}
   .viewct{color:var(--dim)}
   .viewct b{color:var(--mut);font-weight:700}
   .divlbl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700;
@@ -321,6 +324,15 @@
   <!-- ============ VIEW 2 : FLOWS ============ -->
   <div class="view" id="vflows">
     <div class="suwrap">
+      <div class="substrip">
+        <div class="stat" id="tFlDom"><span class="k">USDC dominance</span><span class="v" id="flDom">—</span></div>
+        <div class="stat" id="tFlMix"><span class="k">Collateral mix</span><span class="v" id="flMix">—</span></div>
+        <div class="stat" id="tFlIn"><span class="k">Top inflow</span><span class="v" id="flIn">—</span></div>
+        <div class="stat" id="tFlOut"><span class="k">Top outflow</span><span class="v" id="flOut">—</span></div>
+        <div class="stat" id="tFlDep"><span class="k">Deployed onchain</span><span class="v" id="flDep">—</span></div>
+        <div class="stat" id="tFlIss"><span class="k">Assets</span><span class="v" id="flIss">—</span></div>
+        <div class="stat" id="tFlHHI"><span class="k">Concentration</span><span class="v" id="flHHI">—</span></div>
+      </div>
       <div class="sucard">
         <div class="suhead">Stablecoin Sources &amp; Uses — Solana <span id="suTs">—</span></div>
         <div class="su">
@@ -350,6 +362,12 @@
       <div class="stat"><span class="k">Underlyings</span><span class="v" id="eqCount">—</span></div>
       <div class="stat"><span class="k">Top share</span><span class="v" id="eqTop">—</span></div>
       <div class="stat" id="tEqMc"><span class="k">Tokenized float</span><span class="v" id="eqMc">—</span></div>
+      <div class="stat" id="tEqBr"><span class="k">Breadth</span><span class="v" id="eqBreadth">—</span></div>
+      <div class="stat" id="tEqMed"><span class="k">Median 24h</span><span class="v" id="eqMed">—</span></div>
+      <div class="stat" id="tEqBest"><span class="k">Best</span><span class="v" id="eqBest">—</span></div>
+      <div class="stat" id="tEqWorst"><span class="k">Worst</span><span class="v" id="eqWorst">—</span></div>
+      <div class="stat" id="tEqTurn"><span class="k">Float turnover</span><span class="v" id="eqTurn">—</span></div>
+      <div class="stat" id="tEqLead"><span class="k">Issuer lead</span><span class="v" id="eqLead">—</span></div>
     </div>
     <div class="eqgrid">
       <div class="eqcol">
@@ -371,6 +389,14 @@
 
   <!-- ============ VIEW 4 : TITAN ============ -->
   <div class="view" id="vtitan">
+    <div class="substrip">
+      <div class="stat" id="tTiTam"><span class="k">Router TAM</span><span class="v" id="tiTam">—</span></div>
+      <div class="stat" id="tTiJup"><span class="k">Jupiter</span><span class="v" id="tiJup">—</span></div>
+      <div class="stat" id="tTiDf"><span class="k">DFlow</span><span class="v" id="tiDf">—</span></div>
+      <div class="stat" id="tTiOkx"><span class="k">OKX</span><span class="v" id="tiOkx">—</span></div>
+      <div class="stat ratio" id="tTiGap"><span class="k">Gap to #3</span><span class="v" id="tiGap">—</span></div>
+      <div class="stat" id="tTiHHI"><span class="k">Router HHI</span><span class="v" id="tiHHI">—</span></div>
+    </div>
     <div class="tgrid">
       <div class="card">
         <h2>Titan Exchange — Meta-Router <small id="tiPer">24h</small></h2>
@@ -406,6 +432,14 @@
 
   <!-- ============ VIEW 5 : BACKPACK ============ -->
   <div class="view" id="vbp">
+    <div class="substrip">
+      <div class="stat" id="tBpPS"><span class="k">Perp : Spot</span><span class="v" id="bpPS">—</span></div>
+      <div class="stat" id="tBpOiV"><span class="k">OI turnover</span><span class="v" id="bpOiV">—</span></div>
+      <div class="stat" id="tBpPairs"><span class="k">Pairs</span><span class="v" id="bpPairs">—</span></div>
+      <div class="stat" id="tBpF24"><span class="k">Custody flow 24h</span><span class="v" id="bpF24">—</span></div>
+      <div class="stat" id="tBpF1m"><span class="k">Custody flow 1m</span><span class="v" id="bpF1m">—</span></div>
+      <div class="stat fc" id="tBpRevD"><span class="k">Est. revenue</span><span class="v" id="bpRevD">—</span></div>
+    </div>
     <div class="tgrid">
       <div class="card">
         <h2>Backpack Exchange — Trading <small><span class="badge24">24H · CG</span></small></h2>
@@ -1209,6 +1243,28 @@ function renderFlows(){
   const solRich=assets.map(a=>({sym:a.symbol,name:a.name,v:onSol(a),d:onSol(a)-onSolPrev(a),
       mech:(a.pegMechanism||'').replace('-backed','')})).filter(a=>a.v>1e6).sort((a,b)=>b.v-a.v);
   const MTAG={'fiat':'FIAT','crypto':'CRYPTO','algorithmic':'ALGO'};
+  {const usdc=solRich.find(a=>a.sym==='USDC');
+   if (usdc&&el('flDom')){
+     el('flDom').textContent=(100*usdc.v/solTotal).toFixed(1)+'%';
+     el('tFlDom').title=`USDC = ${fmt$(usdc.v)} of the ${fmt$(solTotal)} Solana stable base.`;
+     const fiat=solRich.filter(a=>a.mech==='fiat').reduce((s2,a)=>s2+a.v,0);
+     const cryp=solRich.filter(a=>a.mech==='crypto').reduce((s2,a)=>s2+a.v,0);
+     el('flMix').textContent=(100*fiat/solTotal).toFixed(0)+'% fiat \u00b7 '+(100*cryp/solTotal).toFixed(0)+'% crypto';
+     el('tFlMix').title=`Peg-mechanism mix of the entire base (DeFiLlama classification): fiat-backed ${(100*fiat/solTotal).toFixed(1)}%, crypto-backed ${(100*cryp/solTotal).toFixed(1)}%, remainder algorithmic/other.`;
+     const movers=[...solRich].sort((a,b)=>b.d-a.d);
+     if (movers.length){
+       const inn=movers[0], outt=movers[movers.length-1];
+       el('flIn').innerHTML=`${esc(inn.sym)} <span style="color:var(--up)">+${fmt$(Math.max(0,inn.d)).slice(1)}</span>`;
+       el('tFlIn').title=`Largest ${pcap} supply increase on Solana: ${inn.sym} ${inn.d>=0?'+':''}${fmt$(inn.d)}.`;
+       el('flOut').innerHTML=outt.d<0?`${esc(outt.sym)} <span style="color:var(--down)">\u2212${fmt$(Math.abs(outt.d)).slice(1)}</span>`:'\u2014';
+       el('tFlOut').title=outt.d<0?`Largest ${pcap} supply decrease on Solana: ${outt.sym} ${fmt$(outt.d)}.`:'No net outflows this window.';
+     }
+     el('flIss').textContent=solRich.length;
+     el('tFlIss').title=`${solRich.length} stablecoins with >$1M supply on Solana.`;
+     const hhi=solRich.reduce((s2,a)=>s2+Math.pow(100*a.v/solTotal,2),0);
+     el('flHHI').textContent=Math.round(hhi).toLocaleString()+' HHI';
+     el('tFlHHI').title=`Herfindahl index of issuer concentration: ${Math.round(hhi)} (10,000 = monopoly; <1,500 = competitive). Computed over ${solRich.length} assets.`;
+  }}
   const topN=solRich.slice(0,6);
   const rest=solTotal-topN.reduce((s,a)=>s+a.v,0);
   const d7=v=>Math.abs(v)<2.5e5?'':`<span class="d7 ${v>=0?'up':'down'}">${v>=0?'+':'−'}${fmt$(Math.abs(v)).slice(1)}</span>`;
@@ -1277,6 +1333,11 @@ function renderFlows(){
     if (openSet.has(p.textContent.slice(0,18))){p.classList.add('open');
       const sub=p.nextElementSibling; if(sub) sub.classList.add('open');}
   });}
+  if (mm>0&&el('flDep')){
+    const dep=mm+dx+dv;
+    el('flDep').textContent=(100*dep/solTotal).toFixed(1)+'%';
+    el('tFlDep').title=`Deployed onchain (est.) = money markets + DEX pools + derivatives margin = ${fmt$(dep)} of ${fmt$(solTotal)} (${(100*dep/solTotal).toFixed(1)}%). The other ${(100-100*dep/solTotal).toFixed(0)}% is custody & float — the deposit opportunity.`;
+  }
   /* deployment mix bar */
   if (mm>0){
     const segs=[['Money markets',mm,'#4a86ff'],['DEX pools',dx,'#7ba7ff'],['Derivatives',dv,'#a9c4ff'],['Custody & float',resid,'#3f4453']];
@@ -1330,6 +1391,31 @@ function renderEquities(){
   el('eqMc').textContent=fmt$(mc);
   el('tEqMc').title=`Tokenized float = Σ market cap of tracked tokenized equities = ${fmt$(mc)} (cross-issuer, wash-filtered).`;
   if (list.length) el('eqTop').textContent=list[0].tick+' '+(100*list[0].vol/total).toFixed(0)+'%';
+  {const chs=list.filter(g=>g.chg!=null);
+   const adv=chs.filter(g=>g.chg>0).length, dec=chs.filter(g=>g.chg<0).length;
+   const eb=el('eqBreadth'); if(eb){
+     eb.innerHTML=`<span style="color:var(--up)">\u25b2${adv}</span> / <span style="color:var(--down)">\u25bc${dec}</span>`;
+     el('tEqBr').title=`Market breadth: ${adv} underlyings up, ${dec} down over 24h (${chs.length} with price data).`;
+     const sorted=[...chs].sort((a,b)=>a.chg-b.chg);
+     const med=sorted.length?sorted[Math.floor(sorted.length/2)].chg:null;
+     if (med!=null){el('eqMed').textContent=(med>=0?'+':'')+med.toFixed(1)+'%';
+       el('eqMed').style.color=med>=0?'var(--up)':'var(--down)';
+       el('tEqMed').title=`Median 24h price change across ${sorted.length} underlyings.`;}
+     const liq=chs.filter(g=>g.vol>2e5);
+     if (liq.length){
+       const best=liq.reduce((a,b)=>b.chg>a.chg?b:a), worst=liq.reduce((a,b)=>b.chg<a.chg?b:a);
+       el('eqBest').innerHTML=`${esc(best.tick)} <span style="color:var(--up)">+${best.chg.toFixed(1)}%</span>`;
+       el('tEqBest').title=`Best 24h performer (>$200K volume): ${best.company}.`;
+       el('eqWorst').innerHTML=`${esc(worst.tick)} <span style="color:var(--down)">${worst.chg.toFixed(1)}%</span>`;
+       el('tEqWorst').title=`Worst 24h performer (>$200K volume): ${worst.company}.`;
+     }
+     if (mc>0){el('eqTurn').textContent=(100*total/mc).toFixed(1)+'%/d';
+       el('tEqTurn').title=`Float turnover = 24h volume \u00f7 tokenized float = ${fmt$(total)} \u00f7 ${fmt$(mc)} = ${(100*total/mc).toFixed(1)}% per day \u2014 equities here trade far faster than their float, exchange-style.`;}
+     const byI={}; list.forEach(g=>g.issues.forEach(i=>{byI[i.issuer]=(byI[i.issuer]||0)+i.vol;}));
+     const lead=Object.entries(byI).sort((a,b)=>b[1]-a[1])[0];
+     if (lead){el('eqLead').textContent=lead[0]+' '+(100*lead[1]/total).toFixed(0)+'%';
+       el('tEqLead').title=`Leading issuer stack by volume: ${lead[0]} at ${(100*lead[1]/total).toFixed(1)}% share.`;}
+  }}
   document.querySelector('#veq .eqhead .stat .k').innerHTML='Tokenized equity vol 24h'+(period!=='24h'?' <span class="badge24">24H ONLY · CG</span>':'');
   /* issuer market share */
   const byIss={};
@@ -1383,6 +1469,21 @@ function renderTitan(){
   const totV=ps.reduce((s,p)=>s+p.v,0);
   const ti=ps.find(p=>/titan/i.test(p.n));
   el('tiPer').textContent=PLBL[period]+' · DeFiLlama aggregators';
+  {const sh=n=>{const p2=ps.find(x=>new RegExp(n,'i').test(x.n));return p2?100*p2.v/totV:null;};
+   if (el('tiTam')){
+     el('tiTam').textContent=fmt$(totV);
+     el('tTiTam').title=`Total Solana aggregator-routed volume, ${PLBL[period]}: ${fmt$(totV)} across ${ps.length} routers \u2014 the meta-routable TAM.`;
+     const j=sh('jupiter'),df=sh('dflow'),ok=sh('okx');
+     if (j!=null){el('tiJup').textContent=j.toFixed(1)+'%';el('tTiJup').title=`Jupiter share of routed volume: ${j.toFixed(1)}%.`;}
+     if (df!=null){el('tiDf').textContent=df.toFixed(1)+'%';el('tTiDf').title=`DFlow share: ${df.toFixed(1)}%.`;}
+     if (ok!=null){el('tiOkx').textContent=ok.toFixed(1)+'%';el('tTiOkx').title=`OKX Swap share: ${ok.toFixed(1)}%.`;}
+     if (ti&&ps[2]){const gap=ps[2].v-ti.v;
+       el('tiGap').textContent=gap>0?fmt$(gap):'\u2014 #3 now';
+       el('tTiGap').title=gap>0?`Volume gap between Titan and the #3 router (${ps[2].n}): ${fmt$(gap)} over ${PLBL[period]} \u2014 the next milestone.`:'Titan holds the #3 slot this window.';}
+     const hhi=ps.reduce((s2,p2)=>s2+Math.pow(100*p2.v/totV,2),0);
+     el('tiHHI').textContent=Math.round(hhi).toLocaleString();
+     el('tTiHHI').title=`Router-market Herfindahl index: ${Math.round(hhi)} (10,000 = monopoly). High concentration = the wedge for a best-execution challenger.`;
+  }}
   el('tiLandPer').textContent='share of '+PLBL[period]+' routed volume · '+fmt$(totV)+' total';
   if (!ti){el('tiVol').textContent='—';return;}
   const rank=ps.indexOf(ti)+1, share=100*ti.v/totV, vd=perDay(ti.v);
@@ -1464,10 +1565,25 @@ function renderBackpack(){
     el('bpPerpT').title=`Perps volume 24h = ${perpB.toFixed(0)} BTC × $${btc.toLocaleString()} = ${fmt$(perp)} (CoinGecko derivatives).`;
     el('bpOi').textContent='OI '+fmt$(oi);
   }
+  if (spot>0&&perp>0&&el('bpPS')){
+    el('bpPS').textContent=(perp/spot).toFixed(1)+'\u00d7';
+    el('tBpPS').title=`Perp : spot volume = ${fmt$(perp)} \u00f7 ${fmt$(spot)} = ${(perp/spot).toFixed(1)}\u00d7 \u2014 the leverage-led exchange profile.`;
+    if (oi>0){el('bpOiV').textContent=(perp/oi).toFixed(1)+'\u00d7/d';
+      el('tBpOiV').title=`OI turnover = perps volume \u00f7 open interest = ${fmt$(perp)} \u00f7 ${fmt$(oi)} = ${(perp/oi).toFixed(1)}\u00d7 daily.`;}
+    el('bpPairs').textContent=(D.bpspot?.tickers||[]).length;
+    el('tBpPairs').title=`${(D.bpspot?.tickers||[]).length} spot pairs listed (CoinGecko).`;
+  }
+  {const cx2=(D.cexs?.cexs||[]).find?.(c=>/backpack/i.test(c.name||''));
+   if (cx2&&el('bpF24')){
+     const f=(v,elv,elt,lbl)=>{const e2=el(elv);e2.textContent=(v>=0?'+':'')+fmt$(v);e2.style.color=v>=0?'var(--up)':'var(--down)';el(elt).title=`Net ${lbl} custody flow (proof-of-reserves wallets): ${(v>=0?'+':'')+fmt$(v)}.`;};
+     f(cx2.inflows_24h,'bpF24','tBpF24','24h'); f(cx2.inflows_1m,'bpF1m','tBpF1m','1-month');
+  }}
   if (spot>0||perp>0){
     const rev=(spot*BP_SPOT_BP+perp*BP_PERP_BP)/1e4;
     el('bpRev').innerHTML=fmt$(rev)+' <small>/day</small>';
     el('bpRevS').textContent=yrFmt(rev)+'/yr run-rate';
+    if (el('bpRevD')&&spot>0&&perp>0){el('bpRevD').textContent=fmt$(rev)+'/d';
+      el('tBpRevD').title=`Modeled: spot \u00d7 ${BP_SPOT_BP} bp + perps \u00d7 ${BP_PERP_BP} bp = ${fmt$(rev)}/day (${yrFmt(rev)}/yr). Blended-take assumptions; actuals not disclosed.`;}
     el('bpRevT').title=`Modeled: spot ${fmt$(spot)} × ${BP_SPOT_BP} bp + perps ${fmt$(perp)} × ${BP_PERP_BP} bp = ${fmt$(rev)}/day.\nBlended-take assumptions (maker rebates net against taker fees); actuals not disclosed. Annualized: ${yrFmt(rev)}.`;
   }
   /* AUC from DeFiLlama CEX transparency */
@@ -1559,7 +1675,6 @@ function renderHeader(){
     if (base>0){
       out.push(bstat('Stable base',fmt$(base),`Total stablecoin supply issued on Solana: ${fmt$(base)}.`));
       out.push(bstat('Net inflow '+pcap,(inflow>=0?'+':'')+fmt$(inflow),`Net change in Solana stablecoin supply over ${pcap} = ${(inflow>=0?'+':'')+fmt$(inflow)}.`,'fc'));
-      if (vol) out.push(bstat('Turnover',(perDay(vol)/base).toFixed(2)+'\u00d7/d',`Stable turnover = DEX volume/day \u00f7 stable base = ${fmt$(perDay(vol))} \u00f7 ${fmt$(base)} = ${(perDay(vol)/base).toFixed(2)}\u00d7 daily (${(30*perDay(vol)/base).toFixed(0)}\u00d7/mo).`));
       if (glob>0) out.push(bstat('Global share',(100*base/glob).toFixed(1)+'% \u00b7 #'+rank,`Solana holds ${(100*base/glob).toFixed(1)}% of the ${fmt$(glob)} global stablecoin base \u2014 chain #${rank} by supply.`));
       out.push(bstat('Float income',fmt$(base*0.04)+'/yr',`Float income pool (est.) = stable base \u00d7 ~4% T-bill yield = ${fmt$(base*0.04)}/yr \u2014 the revenue issuers keep today.`,'ratio'));
     }
@@ -1571,7 +1686,6 @@ function renderHeader(){
       out.push(bstat('Equity vol 24h',fmt$(eqv),`Tokenized-equity volume, cross-venue, de-duplicated: ${fmt$(eqv)}/24h (CoinGecko granularity is 24h only).`));
       out.push(bstat('Tokenized float',fmt$(mc),`\u03a3 market cap of tracked tokenized equities = ${fmt$(mc)}.`,'fc'));
       out.push(bstat('Listings',gs.length+' \u00b7 '+issues+' issues',`${gs.length} underlyings across ${issues} issuer listings.`));
-      out.push(bstat('Top share',gs[0].tick+' '+(100*gs[0].vol/eqv).toFixed(0)+'%',`${gs[0].tick} is ${(100*gs[0].vol/eqv).toFixed(1)}% of tokenized-equity volume.`));
       if (base>0) out.push(bstat('Frictionless capital',fmt$(base+mc),`Stables on Solana (${fmt$(base)}) + tokenized-equity float (${fmt$(mc)}) = ${fmt$(base+mc)}.`,'ratio'));
     }
   } else if (activeView==='vtitan'){
@@ -1597,7 +1711,7 @@ function renderHeader(){
       out.push(bstat('AUC',fmt$(cx.currentTvl),`Assets under custody (proof-of-reserves wallets): ${fmt$(cx.currentTvl)}.`,'fc'));
       if (tok>0){
       out.push(bstat('Tokenized float',fmt$(tok),`\u03a3 market cap of Backpack-issued equity tokens: ${fmt$(tok)}.`));
-      out.push(bstat('CeFi\u2192DeFi bridge',(100*tok/cx.currentTvl).toFixed(1)+'%',`Tokenized float \u00f7 AUC = ${fmt$(tok)} \u00f7 ${fmt$(cx.currentTvl)} = ${(100*tok/cx.currentTvl).toFixed(1)}%.`,'ratio'));
+      out.push(bstat('Bridge',(100*tok/cx.currentTvl).toFixed(1)+'%',`Tokenized float \u00f7 AUC = ${fmt$(tok)} \u00f7 ${fmt$(cx.currentTvl)} = ${(100*tok/cx.currentTvl).toFixed(1)}%.`,'ratio'));
       } else out.push(bstat('Tokenized float','\u2014','CoinGecko is not reporting market caps for Backpack-issued tokens at the moment; float and bridge ratio are hidden rather than shown as zero.'));
     } else out.push(bstat('Backpack','loading\u2026','Fetching exchange data\u2026'));
   }
@@ -1626,6 +1740,13 @@ function renderMapChips(){
   const px=D.sol?.['So11111111111111111111111111111111111111112']?.usdPrice||0;
   const bonded=px>0?Math.round(launchF*0.35/(2*px)):null;
   chips.push(`<span class="mchip" title="${escq('Meme pipeline ('+PLBL[period]+'): '+fmt$(launchV)+' traded on bonding curves \u2192 est. '+(bonded??'\u2014')+' tokens bonded to secondary venues \u2192 '+fmt$(memeV)+' of secondary meme volume. Bonded count is a rough model (assumes ~35% of launchpad fees are graduation-linked at ~2 SOL each) \u2014 order-of-magnitude only.')}">Memes bonded <b>~${bonded==null?'\u2014':bonded.toLocaleString()}</b> \u00b7 ${fmt$(launchV)} curves</span>`);
+  const vs2=(D.dexs.protocols||[]).map(p2=>({n:p2.name,v:tot(p2)||0,s:classify(p2)})).filter(p2=>p2.v>0).sort((a,b)=>b.v-a.v);
+  const tv=vs2.reduce((s2,p2)=>s2+p2.v,0);
+  if (vs2.length&&tv>0){
+    chips.push(`<span class="mchip" title="${escq(vs2.length+' venues with volume this window. Largest: '+vs2[0].n+' at '+(100*vs2[0].v/tv).toFixed(1)+'% of DEX flow.')}">Venues <b>${vs2.length}</b> \u00b7 top ${esc(vs2[0].n.split(' ')[0])} ${(100*vs2[0].v/tv).toFixed(0)}%</span>`);
+    const prop=vs2.filter(p2=>p2.s==='prop').reduce((s2,p2)=>s2+p2.v,0);
+    chips.push(`<span class="mchip" title="${escq('Prop/dark AMMs cleared '+fmt$(prop)+' = '+(100*prop/tv).toFixed(1)+'% of DEX volume ('+PLBL[period]+') \u2014 institutional market-making owns the majors.')}">Prop AMMs <b>${(100*prop/tv).toFixed(0)}%</b></span>`);
+  }
   box.innerHTML=chips.join('');
 }
 
@@ -1634,7 +1755,7 @@ function switchTab(v){
   activeView=v;
   document.querySelectorAll('.tab').forEach(x=>{const on=x.dataset.v===v;x.classList.toggle('on',on);x.setAttribute('aria-selected',on);});
   document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));
-  el('mapctrl').style.visibility = v==='vmap'?'visible':'hidden';
+  el('mapctrl').style.display = v==='vmap'?'':'none';
   tip.style.display='none';
   renderHeader();
   requestAnimationFrame(()=>{ // flex sizes settle first
